@@ -11,13 +11,18 @@ import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 
 public class STCAlexaSpeechlet implements Speechlet {
     private final Logger log;
+    private final Map<String, ISpeechCommand> commandDict;
 
     public STCAlexaSpeechlet(Logger log) {
         this.log = log;
+        this.commandDict = new HashMap<String, ISpeechCommand>();
     }
 
     // Called when a new session with our skill is started
@@ -25,7 +30,6 @@ public class STCAlexaSpeechlet implements Speechlet {
             throws SpeechletException {
         log.info("onSessionStarted requestID={}, sessionId={}",
                 request.getRequestId(), session.getSessionId());
-        
         // Any initialization logic here
     }
 
@@ -65,16 +69,16 @@ public class STCAlexaSpeechlet implements Speechlet {
 
         // Depending on what our 'intent' is, we call different methods
         switch (intent.getName()) {
-            case "AMAZON.HelpIntent":
-                return handleHelpIntent();
-            case "AMAZON.StopIntent":
-                return handleStopIntent();
-            case "AMAZON.CancelIntent":
-                return handleStopIntent();
-            case "WorkshopIntent":
-                return handleWorkshopIntent();
-            default:
-                throw new SpeechletException("Invalid Intent");
+        case "AMAZON.HelpIntent":
+            return handleHelpIntent();
+        case "AMAZON.StopIntent":
+            return handleStopIntent();
+        case "AMAZON.CancelIntent":
+            return handleStopIntent();
+        case "WorkshopIntent":
+            return handleWorkshopIntent();
+        default:
+            throw new SpeechletException("Invalid Intent");
         }
     }
 
@@ -111,20 +115,24 @@ public class STCAlexaSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse handleWorkshopIntent() {
+        // TODO: Obviously this isn't the best nor most accurate response. Also,
+        // asking about more information about a workshop isn't functional atm.
+        // We need to scrap the data in the form of a JSON, parse it, and return
+        // that message to the user. Furthermore, we need to handle the request
+        // of information about a specific workshop.
         String workshops = "Currently we offer workshops on the Adobe Suite"
                 + ", Microsoft Office, Google Applications, and various "
                 + "other programs.";
 
         workshops += " For more information about a specific workshop, "
                 + "please ask me to tell you more";
-
-        // TODO: Obviously this isn't the best nor most accurate response. Also,
-        // asking about more information about a workshop isn't functional atm.
-        // We need to scrap the data in the form of a JSON, parse it, and return
-        // that message to the user. Furthermore, we need to handle the request
-        // of information about a specific workshop.
-
         return SpeechletResponse
                 .newTellResponse(constructOutputSpeech(workshops));
+    }
+    
+    public class Test implements ISpeechCommand {
+        public SpeechletResponse execute(Object... data) {
+            return null;
+        }
     }
 }
