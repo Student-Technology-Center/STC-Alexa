@@ -1,0 +1,21 @@
+{
+    "intents":
+    [
+        {
+            "intent": "HelpIntent"
+        },
+        {
+            "intent": "WorkshopIntent"
+        },
+        {
+            "intent": "WorkshopDateIntent",
+            "slots": 
+            [
+                {
+                    "name": "workshop",
+                    "type": "LIST_OF_WORKSHOPS"
+                }
+            ]
+        }
+    ]
+}

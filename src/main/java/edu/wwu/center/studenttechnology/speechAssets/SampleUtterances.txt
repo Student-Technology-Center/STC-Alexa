@@ -1,0 +1,9 @@
+HelpIntent What are workshops
+
+WorkshopIntent What workshops are available
+WorkshopIntent What workshops are there
+WorkshopIntent What workshops
+
+WorkshopDateIntent When is {workshop}
+WorkshopDateIntent What time is {workshop}
+WorkshopDateIntent When can I go to {workshop}
