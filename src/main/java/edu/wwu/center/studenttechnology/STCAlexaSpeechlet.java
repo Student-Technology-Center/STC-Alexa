@@ -10,7 +10,6 @@ import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +25,7 @@ public class STCAlexaSpeechlet implements Speechlet {
     }
 
     // Called when a new session with our skill is started
+    @Override
     public void onSessionStarted(SessionStartedRequest request, Session session)
             throws SpeechletException {
         log.info("onSessionStarted requestID={}, sessionId={}",
@@ -34,6 +34,7 @@ public class STCAlexaSpeechlet implements Speechlet {
     }
 
     // Called when the skill (our application) is ended
+    @Override
     public void onSessionEnded(SessionEndedRequest request, Session session)
             throws SpeechletException {
         log.info("onSessionEnded requestID={}, sessionID={}",
@@ -45,6 +46,7 @@ public class STCAlexaSpeechlet implements Speechlet {
     // given an intent.
     //
     // For example 'Alexa STC' rather than 'Alexa, what are the STC workshops'
+    @Override
     public SpeechletResponse onLaunch(LaunchRequest request, Session session)
             throws SpeechletException {
         log.info("onlaunch requestId={}, sessionId={}", request.getRequestId(),
@@ -54,6 +56,7 @@ public class STCAlexaSpeechlet implements Speechlet {
         return handleHelpIntent();
     }
 
+    @Override
     public SpeechletResponse onIntent(IntentRequest request, Session session)
             throws SpeechletException {
         log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
@@ -69,16 +72,14 @@ public class STCAlexaSpeechlet implements Speechlet {
 
         // Depending on what our 'intent' is, we call different methods
         switch (intent.getName()) {
-        case "AMAZON.HelpIntent":
-            return handleHelpIntent();
-        case "AMAZON.StopIntent":
-            return handleStopIntent();
-        case "AMAZON.CancelIntent":
-            return handleStopIntent();
-        case "WorkshopIntent":
-            return handleWorkshopIntent();
-        default:
-            throw new SpeechletException("Invalid Intent");
+            case "AMAZON.StopIntent":
+                return handleStopIntent();
+            case "AMAZON.CancelIntent":
+                return handleStopIntent();
+            case "WorkshopInformationIntent":
+                return handleWorkshopIntent();
+            default:
+                throw new SpeechletException("Invalid Intent");
         }
     }
 
@@ -129,7 +130,7 @@ public class STCAlexaSpeechlet implements Speechlet {
         return SpeechletResponse
                 .newTellResponse(constructOutputSpeech(workshops));
     }
-    
+
     public class Test implements ISpeechCommand {
         public SpeechletResponse execute(Object... data) {
             return null;
