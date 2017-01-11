@@ -13,7 +13,7 @@
             <groupId>com.amazon.alexa</groupId>
             <artifactId>alexa-skills-kit</artifactId>
             <version>1.2</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -27,4 +27,8 @@
             <version>1.7.0</version>
         </dependency>
     </dependencies>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 </project>
