@@ -1,8 +1,6 @@
-HelpIntent What are workshops
-
-WorkshopIntent What workshops are available
-WorkshopIntent What workshops are there
-WorkshopIntent What workshops
+WorkshopInformationIntent What workshops are available
+WorkshopInformationIntent What workshops are there
+WorkshopInformationIntent What workshops does the STC have
 
 WorkshopDateIntent When is {workshop}
 WorkshopDateIntent What time is {workshop}
