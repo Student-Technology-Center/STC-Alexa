@@ -1,6 +1,7 @@
 package edu.wwu.center.studenttechnology;
 
 import com.amazon.speech.slu.Intent;
+import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
 import com.amazon.speech.speechlet.Session;
@@ -10,6 +11,10 @@ import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
+
+import edu.wwu.center.studenttechnology.util.Workshop;
+import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,10 +23,12 @@ import org.slf4j.Logger;
 public class STCAlexaSpeechlet implements Speechlet {
     private final Logger log;
     private final Map<String, ISpeechCommand> commandDict;
+    private WorkshopJsonParser workshopJsonParser;
 
     public STCAlexaSpeechlet(Logger log) {
         this.log = log;
         this.commandDict = new HashMap<String, ISpeechCommand>();
+        workshopJsonParser = new WorkshopJsonParser();
     }
 
     // Called when a new session with our skill is started
@@ -63,6 +70,7 @@ public class STCAlexaSpeechlet implements Speechlet {
                 session.getSessionId());
 
         Intent intent = request.getIntent();
+        workshopJsonParser.checkForUpdate();
 
         // Not sure when its possible for an intent to be null, but better safe
         // than sorry
@@ -78,6 +86,8 @@ public class STCAlexaSpeechlet implements Speechlet {
                 return handleStopIntent();
             case "WorkshopInformationIntent":
                 return handleWorkshopIntent();
+            case "WorkshopDateIntent":
+                return handleWorkshopDateIntent(intent);
             default:
                 throw new SpeechletException("Invalid Intent");
         }
@@ -129,6 +139,19 @@ public class STCAlexaSpeechlet implements Speechlet {
                 + "please ask me to tell you more";
         return SpeechletResponse
                 .newTellResponse(constructOutputSpeech(workshops));
+    }
+
+    private SpeechletResponse handleWorkshopDateIntent(Intent intent) {
+        Slot workshopShopSlot = intent.getSlot("workshop");
+        String workshopString = workshopShopSlot.getValue();
+        Workshop workshop = workshopJsonParser.getWorkshop(workshopString);
+
+        String response = "You asked about " + workshop.getName()
+                + " which is available on " + workshop.GetDates().get(0)
+                + " at " + workshop.getStartTime().get(0) + " and has "
+                + workshop.getSeatsRemaining() + " seats remaining";
+        
+        return SpeechletResponse.newTellResponse(constructOutputSpeech(response));
     }
 
     public class Test implements ISpeechCommand {
