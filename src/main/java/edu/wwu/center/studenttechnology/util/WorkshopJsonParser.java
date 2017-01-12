@@ -1,16 +1,13 @@
 package edu.wwu.center.studenttechnology.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class WorkshopJsonParser {
     private final String JSON_URL = "http://west.wwu.edu/stcworkshops/workshop_jason.asp";
@@ -24,56 +21,42 @@ public class WorkshopJsonParser {
     }
 
     public void checkForUpdate() {
-        // TODO: Clean this up lol
-        try {
-            setJsonObject();
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        setJsonObject();
         createWorkshopMap();
     }
 
-    private void setJsonObject() throws MalformedURLException, IOException {
-        InputStream inputStream = new URL(JSON_URL).openStream();
-
+    private void setJsonObject() {
+        Document doc;
         try {
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(inputStream,
-                            Charset.forName("UTF-8")));
-
-            String newLine;
-            String jsonText = "";
-
-            while ((newLine = bufferedReader.readLine()) != null) {
-                jsonText += newLine;
-            }
-
-            jsonObject = new JSONObject(jsonText);
-        } catch (Exception e) {
+            doc = Jsoup.connect(JSON_URL).get();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        } finally {
-            inputStream.close();
+            return;
         }
+        String jsonText = doc.body().text();
+        jsonObject = new JSONObject(jsonText);
     }
 
     private void createWorkshopMap() {
         JSONArray workshopArray = jsonObject.getJSONArray("workshops");
         workshopMap = new HashMap<String, Workshop>();
 
-        int i = 0;
+        workshopArray.length();
+        System.out.println(workshopArray.length());
 
-        while (workshopArray.getJSONObject(i) != null) {
+        for (int i = 0; i < workshopArray.length(); i++) {
             JSONObject workshopJsonObject = workshopArray.getJSONObject(i);
             String name = workshopJsonObject.getString("name");
-            String date = workshopJsonObject.getString("date");
-            String startTime = workshopJsonObject.getString("start");
-            String seats = workshopJsonObject.getString("seats");
+            name = name.substring(0, name.length() - 1);
+            String date = workshopJsonObject.getString("date")
+                    .replaceAll("\\s+", "");
+            String startTime = workshopJsonObject.getString("start")
+                    .replaceAll("\\s+", "");
+            String seats = workshopJsonObject.getString("seats")
+                    .replaceAll("\\s+", "");
 
+            System.out.println(name);
             if (workshopMap.containsKey(name)) {
                 Workshop workshop = workshopMap.get(name);
                 workshop.addDate(date);
@@ -89,5 +72,9 @@ public class WorkshopJsonParser {
 
     public Workshop getWorkshop(String name) {
         return workshopMap.get(name);
+    }
+
+    public Collection<Workshop> getWorkshopCollection() {
+        return workshopMap.values();
     }
 }
