@@ -15,6 +15,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import edu.wwu.center.studenttechnology.util.Workshop;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +61,7 @@ public class STCAlexaSpeechlet implements Speechlet {
                 session.getSessionId());
 
         // For now, we just give them info on the STC
-        return handleHelpIntent();
+        return SpeechletResponse.newTellResponse(constructOutputSpeech("Succesfully launched the STC"));
     }
 
     @Override
@@ -80,16 +81,16 @@ public class STCAlexaSpeechlet implements Speechlet {
 
         // Depending on what our 'intent' is, we call different methods
         switch (intent.getName()) {
-            case "AMAZON.StopIntent":
-                return handleStopIntent();
-            case "AMAZON.CancelIntent":
-                return handleStopIntent();
-            case "WorkshopInformationIntent":
-                return handleWorkshopIntent();
-            case "WorkshopDateIntent":
-                return handleWorkshopDateIntent(intent);
-            default:
-                throw new SpeechletException("Invalid Intent");
+        case "AMAZON.StopIntent":
+            return handleStopIntent();
+        case "AMAZON.CancelIntent":
+            return handleStopIntent();
+        case "WorkshopInformationIntent":
+            return handleWorkshopIntent();
+        case "WorkshopDateIntent":
+            return handleWorkshopDateIntent(intent);
+        default:
+            throw new SpeechletException("Invalid Intent");
         }
     }
 
@@ -126,19 +127,23 @@ public class STCAlexaSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse handleWorkshopIntent() {
-        // TODO: Obviously this isn't the best nor most accurate response. Also,
-        // asking about more information about a workshop isn't functional atm.
-        // We need to scrap the data in the form of a JSON, parse it, and return
-        // that message to the user. Furthermore, we need to handle the request
-        // of information about a specific workshop.
-        String workshops = "Currently we offer workshops on the Adobe Suite"
-                + ", Microsoft Office, Google Applications, and various "
-                + "other programs.";
+        Collection<Workshop> workshopCollection = workshopJsonParser
+                .getWorkshopCollection();
 
-        workshops += " For more information about a specific workshop, "
-                + "please ask me to tell you more";
+        String response = "Currently we have workshops on ";
+
+        for (Workshop workshop : workshopCollection) {
+            String workshopName = workshop.getName();
+            workshopName = workshopName.replace(" I", "");
+            workshopName = workshopName.replaceAll(" X", "");
+
+            response += workshopName + ", ";
+        }
+
+        response += ". For more information, please say tell me more about this workshop";
+
         return SpeechletResponse
-                .newTellResponse(constructOutputSpeech(workshops));
+                .newTellResponse(constructOutputSpeech(response));
     }
 
     private SpeechletResponse handleWorkshopDateIntent(Intent intent) {
@@ -150,8 +155,9 @@ public class STCAlexaSpeechlet implements Speechlet {
                 + " which is available on " + workshop.GetDates().get(0)
                 + " at " + workshop.getStartTime().get(0) + " and has "
                 + workshop.getSeatsRemaining() + " seats remaining";
-        
-        return SpeechletResponse.newTellResponse(constructOutputSpeech(response));
+
+        return SpeechletResponse
+                .newTellResponse(constructOutputSpeech(response));
     }
 
     public class Test implements ISpeechCommand {
