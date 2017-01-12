@@ -5,7 +5,7 @@
             "intent": "HelpIntent"
         },
         {
-            "intent": "WorkshopIntent"
+            "intent": "WorkshopInformationIntent"
         },
         {
             "intent": "WorkshopDateIntent",
