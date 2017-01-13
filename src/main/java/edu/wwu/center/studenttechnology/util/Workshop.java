@@ -31,18 +31,19 @@ public class Workshop {
 
     public String getReadableName() {
         String readableString = name;
+        
+        System.out.println("String in question: " + readableString);
 
         String lastTwoCharacterString = readableString
                 .substring(readableString.length() - 2);
+        
+        System.out.println("Substring:" + lastTwoCharacterString);
 
         if (lastTwoCharacterString.equals(" i")
                 || lastTwoCharacterString.equals(" x")) {
             readableString = readableString.substring(0,
                     readableString.length() - 2);
         }
-
-        readableString = readableString.replaceAll(" i", "");
-        readableString = readableString.replaceAll(" x", "");
 
         return readableString;
     }
