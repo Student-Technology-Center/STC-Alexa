@@ -137,10 +137,16 @@ public class STCAlexaSpeechlet implements Speechlet {
 
         String response = "Currently we have workshops on ";
 
-        for (Workshop workshop : workshopCollection) {
-            String workshopName = workshop.getReadableName();
+        boolean firstIteration = true;
 
-            response += workshopName + ", ";
+        for (Workshop workshop : workshopCollection) {
+            if (!firstIteration) {
+                response += ", ";
+            }
+
+            response += workshop.getReadableName();
+
+            firstIteration = false;
         }
 
         response += ". For more information, please say tell me more about this workshop";
