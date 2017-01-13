@@ -21,59 +21,70 @@ import edu.wwu.center.studenttechnology.util.speech.assets.SampleUtteranceHandle
 import org.slf4j.Logger;
 
 public class STCAlexaSpeechlet implements Speechlet {
-	private final Logger log;
-	private final SampleUtteranceHandler sampleUtteranceHandler;
-	private final IntentHandler intentHandler;
-	private final WorkshopJsonParser workshopJsonParser;
+    private final Logger log;
+    private final SampleUtteranceHandler sampleUtteranceHandler;
+    private final IntentHandler intentHandler;
+    private final WorkshopJsonParser workshopJsonParser;
 
-	public STCAlexaSpeechlet(Logger log) {
-		this.log = log;
-		workshopJsonParser = new WorkshopJsonParser();
-		sampleUtteranceHandler = new SampleUtteranceHandler();
-		intentHandler = new IntentHandler();
+    public STCAlexaSpeechlet(Logger log) {
+        this.log = log;
+        workshopJsonParser = new WorkshopJsonParser();
+        sampleUtteranceHandler = new SampleUtteranceHandler();
+        intentHandler = new IntentHandler();
 
-		WorkshopInformationIntentHandler workshopInformationHandler = new WorkshopInformationIntentHandler(
-				workshopJsonParser);
-		WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler(workshopJsonParser,
-				sampleUtteranceHandler);
-		STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler();
+        WorkshopInformationIntentHandler workshopInformationHandler = new WorkshopInformationIntentHandler(
+                workshopJsonParser);
+        WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler(
+                workshopJsonParser, sampleUtteranceHandler);
+        STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler();
 
-		intentHandler.addIntentHandler("WorkshopInformationIntent", workshopInformationHandler);
-		intentHandler.addIntentHandler("WorkshopDateIntent", workshopDateHandler);
-		intentHandler.addIntentHandler("STCInformationIntent", stcInformationHandler);
-	}
+        intentHandler.addIntentHandler("WorkshopInformationIntent",
+                workshopInformationHandler);
+        intentHandler.addIntentHandler("WorkshopDateIntent",
+                workshopDateHandler);
+        intentHandler.addIntentHandler("STCInformationIntent",
+                stcInformationHandler);
+    }
 
-	@Override
-	public SpeechletResponse onIntent(IntentRequest request, Session session) throws SpeechletException {
-		log.info("onIntent requestId={}, sessionId={}", request.getRequestId(), session.getSessionId());
+    @Override
+    public SpeechletResponse onIntent(IntentRequest request, Session session)
+            throws SpeechletException {
+        log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
+                session.getSessionId());
 
-		Intent intent = request.getIntent();
-		workshopJsonParser.checkForUpdate();
+        Intent intent = request.getIntent();
+        workshopJsonParser.checkForUpdate();
 
-		if (intent == null) {
-			throw new SpeechletException("Invalid Intent");
-		}
+        if (intent == null) {
+            throw new SpeechletException("Invalid Intent");
+        }
 
-		return intentHandler.update(intent);
-	}
+        return intentHandler.update(intent);
+    }
 
-	@Override
-	public void onSessionStarted(SessionStartedRequest request, Session session) throws SpeechletException {
-		log.info("onSessionStarted requestID={}, sessionId={}", request.getRequestId(), session.getSessionId());
-	}
+    @Override
+    public void onSessionStarted(SessionStartedRequest request, Session session)
+            throws SpeechletException {
+        log.info("onSessionStarted requestID={}, sessionId={}",
+                request.getRequestId(), session.getSessionId());
+    }
 
-	@Override
-	public void onSessionEnded(SessionEndedRequest request, Session session) throws SpeechletException {
-		log.info("onSessionEnded requestID={}, sessionID={}", request.getRequestId(), session.getSessionId());
-	}
+    @Override
+    public void onSessionEnded(SessionEndedRequest request, Session session)
+            throws SpeechletException {
+        log.info("onSessionEnded requestID={}, sessionID={}",
+                request.getRequestId(), session.getSessionId());
+    }
 
-	@Override
-	public SpeechletResponse onLaunch(LaunchRequest request, Session session) throws SpeechletException {
-		log.info("onlaunch requestId={}, sessionId={}", request.getRequestId(), session.getSessionId());
+    @Override
+    public SpeechletResponse onLaunch(LaunchRequest request, Session session)
+            throws SpeechletException {
+        log.info("onlaunch requestId={}, sessionId={}", request.getRequestId(),
+                session.getSessionId());
 
-		PlainTextOutputSpeech output = new PlainTextOutputSpeech();
-		output.setText("Okay, launching STC.");
+        PlainTextOutputSpeech output = new PlainTextOutputSpeech();
+        output.setText("Okay, launching STC.");
 
-		return SpeechletResponse.newTellResponse(output);
-	}
+        return SpeechletResponse.newTellResponse(output);
+    }
 }
