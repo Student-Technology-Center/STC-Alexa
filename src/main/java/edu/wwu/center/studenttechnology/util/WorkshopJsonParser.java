@@ -43,11 +43,10 @@ public class WorkshopJsonParser {
         workshopMap = new HashMap<String, Workshop>();
 
         workshopArray.length();
-        System.out.println(workshopArray.length());
 
         for (int i = 0; i < workshopArray.length(); i++) {
             JSONObject workshopJsonObject = workshopArray.getJSONObject(i);
-            String name = workshopJsonObject.getString("name");
+            String name = workshopJsonObject.getString("name").toLowerCase();
             name = name.substring(0, name.length() - 1);
             String date = workshopJsonObject.getString("date")
                     .replaceAll("\\s+", "");
@@ -56,7 +55,6 @@ public class WorkshopJsonParser {
             String seats = workshopJsonObject.getString("seats")
                     .replaceAll("\\s+", "");
 
-            System.out.println(name);
             if (workshopMap.containsKey(name)) {
                 Workshop workshop = workshopMap.get(name);
                 workshop.addDate(date);
