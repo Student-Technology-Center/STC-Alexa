@@ -11,6 +11,7 @@ import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
+import com.amazon.speech.ui.Reprompt;
 
 import edu.wwu.center.studenttechnology.util.Workshop;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
@@ -20,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.omg.CORBA.RepositoryIdHelper;
 import org.slf4j.Logger;
 
 public class STCAlexaSpeechlet implements Speechlet {
@@ -34,6 +36,8 @@ public class STCAlexaSpeechlet implements Speechlet {
         this.commandDict = new HashMap<String, ISpeechCommand>();
         workshopJsonParser = new WorkshopJsonParser();
         utteranceHandler = new SampleUtteranceHandler();
+
+        commandDict.put("ConfirmationIntent", new defaultYesResponse());
     }
 
     // Called when a new session with our skill is started
@@ -94,6 +98,12 @@ public class STCAlexaSpeechlet implements Speechlet {
                 return handleWorkshopIntent();
             case "WorkshopDateIntent":
                 return handleWorkshopDateIntent(intent);
+            case "NoIntent":
+                return handleNoIntent();
+            case "STCInformationIntent":
+                return handleHelpIntent();
+            case "ConfirmationIntent":
+                return commandDict.get(intent.getName()).execute(intent);
             default:
                 throw new SpeechletException("Invalid Intent");
         }
@@ -124,6 +134,16 @@ public class STCAlexaSpeechlet implements Speechlet {
         return output;
     }
 
+    private Reprompt constructReprompt(String msg) {
+        PlainTextOutputSpeech plainTextOutputSpeech = constructOutputSpeech(
+                msg);
+
+        Reprompt reprompt = new Reprompt();
+        reprompt.setOutputSpeech(plainTextOutputSpeech);
+
+        return reprompt;
+    }
+
     private SpeechletResponse handleStopIntent() {
         String goodbye = "Goodbye, have a nice day!";
 
@@ -149,10 +169,25 @@ public class STCAlexaSpeechlet implements Speechlet {
             firstIteration = false;
         }
 
-        response += ". For more information, please say tell me more about this workshop";
+        response += ".";
 
-        return SpeechletResponse
-                .newTellResponse(constructOutputSpeech(response));
+        String repromptText = "Is there a workshop you wish to learn more about?";
+
+        response += " " + repromptText;
+
+        return SpeechletResponse.newAskResponse(constructOutputSpeech(response),
+                constructReprompt(repromptText));
+    }
+
+    public class yesToWorkshopIntent implements ISpeechCommand {
+        public SpeechletResponse execute(Object... data) {
+            commandDict.put("ConfirmationIntent", new defaultYesResponse());
+
+            String response = "Okay. Which one?";
+            return SpeechletResponse.newAskResponse(
+                    constructOutputSpeech(response),
+                    constructReprompt(response));
+        }
     }
 
     private SpeechletResponse handleWorkshopDateIntent(Intent intent) {
@@ -165,15 +200,23 @@ public class STCAlexaSpeechlet implements Speechlet {
         String response = "You asked about " + workshop.getReadableName()
                 + " which is available on " + workshop.GetDates().get(0)
                 + " at " + workshop.getStartTime().get(0) + " and has "
-                + workshop.getSeatsRemaining() + " seats remaining";
+                + workshop.getSeatsRemaining().get(0) + " seats remaining";
 
         return SpeechletResponse
                 .newTellResponse(constructOutputSpeech(response));
     }
 
-    public class Test implements ISpeechCommand {
+    private SpeechletResponse handleNoIntent() {
+        commandDict.put("ConfirmationIntent", new defaultYesResponse());
+
+        return SpeechletResponse
+                .newTellResponse(constructOutputSpeech("Okay."));
+    }
+
+    public class defaultYesResponse implements ISpeechCommand {
         public SpeechletResponse execute(Object... data) {
-            return null;
+            return SpeechletResponse.newTellResponse(
+                    constructOutputSpeech("I'm sorry, I don't understand"));
         }
     }
 }

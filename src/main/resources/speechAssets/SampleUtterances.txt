@@ -2,6 +2,22 @@ WorkshopInformationIntent What workshops are available
 WorkshopInformationIntent What workshops are there
 WorkshopInformationIntent What workshops does the STC have
 
+STCInformationIntent Tell me about the STC
+STCInformationIntent What does the STC do
+STCInformationIntent What is the STC
+
 WorkshopDateIntent When is {workshop}
 WorkshopDateIntent What time is {workshop}
 WorkshopDateIntent When can I go to {workshop}
+WorkshopDateIntent Tell me more about {workshop}
+WorkshopDateIntent {workshop}
+WorkshopDateIntent yes {workshop}
+
+ConfirmationIntent yes
+ConfirmationIntent sure
+ConfirmationIntent yes please
+ConfirmationIntent yup
+
+NoIntent no
+NoIntent nah
+NoIntent no thanks

@@ -2,10 +2,10 @@
     "intents":
     [
         {
-            "intent": "HelpIntent"
+            "intent": "WorkshopInformationIntent"
         },
         {
-            "intent": "WorkshopInformationIntent"
+            "intent": "STCInformationIntent"
         },
         {
             "intent": "WorkshopDateIntent",
@@ -16,6 +16,12 @@
                     "type": "LIST_OF_WORKSHOPS"
                 }
             ]
+        },
+        {
+            "intent": "ConfirmationIntent"
+        },
+        {
+            "intent": "NoIntent"
         }
     ]
 }
