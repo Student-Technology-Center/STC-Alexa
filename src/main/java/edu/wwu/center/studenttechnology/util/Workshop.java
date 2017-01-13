@@ -14,7 +14,7 @@ public class Workshop {
         this.name = name;
 
         // TODO: Tie the following three strings together somehow
-        
+
         this.dates = new ArrayList<String>();
         dates.add(date);
 
@@ -27,6 +27,24 @@ public class Workshop {
 
     public String getName() {
         return name;
+    }
+
+    public String getReadableName() {
+        String readableString = name;
+
+        String lastTwoCharacterString = readableString
+                .substring(readableString.length() - 2);
+
+        if (lastTwoCharacterString.equals(" i")
+                || lastTwoCharacterString.equals(" x")) {
+            readableString = readableString.substring(0,
+                    readableString.length() - 2);
+        }
+
+        readableString = readableString.replaceAll(" i", "");
+        readableString = readableString.replaceAll(" x", "");
+
+        return readableString;
     }
 
     public List<String> GetDates() {
@@ -48,7 +66,7 @@ public class Workshop {
     public List<String> getSeatsRemaining() {
         return seatsRemainingList;
     }
-    
+
     public void addSeatsRemaining(String seatsRemaining) {
         seatsRemainingList.add(seatsRemaining);
     }
