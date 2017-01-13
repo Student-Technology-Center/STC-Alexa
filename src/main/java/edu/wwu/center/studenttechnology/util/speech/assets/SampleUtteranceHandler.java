@@ -47,8 +47,9 @@ public class SampleUtteranceHandler {
     }
 
     public String GetString(String utteranceString) {
+    	
         for (SampleUtterance sampleUtterance : utteranceList) {
-            String result = sampleUtterance.CheckString(utteranceString);
+            String result = sampleUtterance.CheckString(utteranceString.toLowerCase());
 
             if (result == null) {
                 continue;
