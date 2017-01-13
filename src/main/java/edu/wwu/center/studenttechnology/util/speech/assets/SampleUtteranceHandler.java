@@ -25,7 +25,6 @@ public class SampleUtteranceHandler {
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println(line);
 
                 if (sampleUtterance == null) {
                     sampleUtterance = new SampleUtterance(line);
