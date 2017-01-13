@@ -41,7 +41,6 @@ public class SampleUtteranceHandler {
             }
 
             utteranceList.add(sampleUtterance);
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
