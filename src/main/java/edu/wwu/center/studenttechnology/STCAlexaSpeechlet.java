@@ -14,6 +14,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 
 import edu.wwu.center.studenttechnology.util.Workshop;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
+import edu.wwu.center.studenttechnology.util.speech.assets.SampleUtteranceHandler;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,12 +25,15 @@ import org.slf4j.Logger;
 public class STCAlexaSpeechlet implements Speechlet {
     private final Logger log;
     private final Map<String, ISpeechCommand> commandDict;
+    private final SampleUtteranceHandler utteranceHandler;
+
     private WorkshopJsonParser workshopJsonParser;
 
     public STCAlexaSpeechlet(Logger log) {
         this.log = log;
         this.commandDict = new HashMap<String, ISpeechCommand>();
         workshopJsonParser = new WorkshopJsonParser();
+        utteranceHandler = new SampleUtteranceHandler();
     }
 
     // Called when a new session with our skill is started
@@ -61,7 +65,8 @@ public class STCAlexaSpeechlet implements Speechlet {
                 session.getSessionId());
 
         // For now, we just give them info on the STC
-        return SpeechletResponse.newTellResponse(constructOutputSpeech("Succesfully launched the STC"));
+        return SpeechletResponse.newTellResponse(
+                constructOutputSpeech("Succesfully launched the STC"));
     }
 
     @Override
@@ -81,16 +86,16 @@ public class STCAlexaSpeechlet implements Speechlet {
 
         // Depending on what our 'intent' is, we call different methods
         switch (intent.getName()) {
-        case "AMAZON.StopIntent":
-            return handleStopIntent();
-        case "AMAZON.CancelIntent":
-            return handleStopIntent();
-        case "WorkshopInformationIntent":
-            return handleWorkshopIntent();
-        case "WorkshopDateIntent":
-            return handleWorkshopDateIntent(intent);
-        default:
-            throw new SpeechletException("Invalid Intent");
+            case "AMAZON.StopIntent":
+                return handleStopIntent();
+            case "AMAZON.CancelIntent":
+                return handleStopIntent();
+            case "WorkshopInformationIntent":
+                return handleWorkshopIntent();
+            case "WorkshopDateIntent":
+                return handleWorkshopDateIntent(intent);
+            default:
+                throw new SpeechletException("Invalid Intent");
         }
     }
 
@@ -133,9 +138,7 @@ public class STCAlexaSpeechlet implements Speechlet {
         String response = "Currently we have workshops on ";
 
         for (Workshop workshop : workshopCollection) {
-            String workshopName = workshop.getName();
-            workshopName = workshopName.replace(" I", "");
-            workshopName = workshopName.replaceAll(" X", "");
+            String workshopName = workshop.getReadableName();
 
             response += workshopName + ", ";
         }
@@ -149,9 +152,11 @@ public class STCAlexaSpeechlet implements Speechlet {
     private SpeechletResponse handleWorkshopDateIntent(Intent intent) {
         Slot workshopShopSlot = intent.getSlot("workshop");
         String workshopString = workshopShopSlot.getValue();
+
+        workshopString = utteranceHandler.GetString(workshopString);
         Workshop workshop = workshopJsonParser.getWorkshop(workshopString);
 
-        String response = "You asked about " + workshop.getName()
+        String response = "You asked about " + workshop.getReadableName()
                 + " which is available on " + workshop.GetDates().get(0)
                 + " at " + workshop.getStartTime().get(0) + " and has "
                 + workshop.getSeatsRemaining() + " seats remaining";
