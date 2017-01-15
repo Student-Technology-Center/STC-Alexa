@@ -14,8 +14,8 @@ public class IntentHandler {
         intentMap = new HashMap<String, IntentHandlerBase>();
     }
 
-    public SpeechletResponse update(Intent intent) {
-        return executeHandler(intent.getName(), intent);
+    public SpeechletResponse update(String intentHandlerName, Intent intent) {
+        return executeHandler(intentHandlerName, intent);
     }
 
     public void addIntentHandler(String intentName,
@@ -23,17 +23,25 @@ public class IntentHandler {
         intentMap.put(intentName, intentHandler);
     }
 
-    public SpeechletResponse executeHandler(String intentName, Intent intent) {
-        return intentMap.get(intentName).execute(intent);
+    // I dont know how I feel about this code, it feels sloppy
+    public SpeechletResponse executeHandler(String intentHandlerName,
+            Intent intent) {
+        if (intent.getName() == "ConfirmationIntent") {
+            return executeYesHandler(intentHandlerName, intent);
+        } else if (intent.getName() == "NoIntent") {
+            return executeNoHandler(intentHandlerName, intent);
+        }
+
+        return intentMap.get(intentHandlerName).execute(intent);
     }
 
-    public SpeechletResponse executeYesHandler(String intentName,
+    public SpeechletResponse executeYesHandler(String intentHandlerName,
             Intent intent) {
-        return intentMap.get(intentName).handleYesResponse(intent);
+        return intentMap.get(intentHandlerName).handleYesResponse(intent);
     }
 
-    public SpeechletResponse executeNoHandler(String intentName,
+    public SpeechletResponse executeNoHandler(String intentHandlerName,
             Intent intent) {
-        return intentMap.get(intentName).handleNoResponse(intent);
+        return intentMap.get(intentHandlerName).handleNoResponse(intent);
     }
 }

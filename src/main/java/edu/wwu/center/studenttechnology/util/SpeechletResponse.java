@@ -7,6 +7,15 @@ import com.amazon.speech.ui.Reprompt;
 
 public class SpeechletResponse
         extends com.amazon.speech.speechlet.SpeechletResponse {
+    
+    private boolean handleNextYesNoEvent;
+    private boolean handleNextEvent;
+    
+    public SpeechletResponse() {
+        handleNextYesNoEvent = false;
+        handleNextEvent = false;
+    }
+    
     /*
      * A lot of this code will be direct copy of Amazon's original
      * SpeechletResponse. This is so that we can repackage what's here and use
@@ -35,6 +44,22 @@ public class SpeechletResponse
         reprompt.setOutputSpeech(repromptOutput);
 
         return newAskResponse(output, reprompt);
+    }
+    
+    public void handleNextYesNoIntent(boolean value) {
+        handleNextYesNoEvent = value;
+    }
+    
+    public void handleNextEvent(boolean value) {
+        handleNextEvent = value;
+    }
+    
+    public boolean getHandleNextYesNoIntent() {
+        return handleNextYesNoEvent;
+    }
+    
+    public boolean getHandleNextEvent() {
+        return handleNextEvent;
     }
 
     /*

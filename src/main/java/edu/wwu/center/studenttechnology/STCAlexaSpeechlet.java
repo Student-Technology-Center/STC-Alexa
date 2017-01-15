@@ -26,11 +26,17 @@ public class STCAlexaSpeechlet implements Speechlet {
     private final IntentHandler intentHandler;
     private final WorkshopJsonParser workshopJsonParser;
 
+    private String intentToHandleNextYesNoIntent;
+    private String intentToHandleNextIntent;
+
     public STCAlexaSpeechlet(Logger log) {
         this.log = log;
         workshopJsonParser = new WorkshopJsonParser();
         sampleUtteranceHandler = new SampleUtteranceHandler();
         intentHandler = new IntentHandler();
+
+        intentToHandleNextYesNoIntent = null;
+        intentToHandleNextIntent = null;
 
         WorkshopInformationIntentHandler workshopInformationHandler = new WorkshopInformationIntentHandler(
                 workshopJsonParser);
@@ -51,15 +57,33 @@ public class STCAlexaSpeechlet implements Speechlet {
             throws SpeechletException {
         log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId());
+        workshopJsonParser.checkForUpdate();
 
         Intent intent = request.getIntent();
-        workshopJsonParser.checkForUpdate();
 
         if (intent == null) {
             throw new SpeechletException("Invalid Intent");
         }
 
-        return intentHandler.update(intent);
+        String intentString = (intentToHandleNextYesNoIntent == null)
+                ? intent.getName() : intentToHandleNextYesNoIntent;
+        intentString = (intentToHandleNextIntent == null) ? intentString
+                : intentToHandleNextIntent;
+
+        intentToHandleNextYesNoIntent = null;
+        intentToHandleNextIntent = null;
+
+        SpeechletResponse response = intentHandler.update(intentString, intent);
+
+        if (response.getHandleNextYesNoIntent()) {
+            intentToHandleNextYesNoIntent = intent.getName();
+        }
+
+        if (response.getHandleNextEvent()) {
+            intentToHandleNextIntent = intent.getName();
+        }
+
+        return response;
     }
 
     @Override
