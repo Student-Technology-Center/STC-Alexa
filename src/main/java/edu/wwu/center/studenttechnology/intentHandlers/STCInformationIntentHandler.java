@@ -1,7 +1,8 @@
 package edu.wwu.center.studenttechnology.intentHandlers;
 
 import com.amazon.speech.slu.Intent;
-import com.amazon.speech.speechlet.SpeechletResponse;
+
+import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 
 public class STCInformationIntentHandler extends IntentHandlerBase {
 
@@ -14,8 +15,7 @@ public class STCInformationIntentHandler extends IntentHandlerBase {
                 + "of manuals, tutorials and other advanced equipment and software "
                 + "to promote their learning.";
 
-        return SpeechletResponse
-                .newTellResponse(constructOutputSpeech(helpMessage));
+        return SpeechletResponse.newTellResponse(helpMessage);
     }
 
     @Override

@@ -2,8 +2,8 @@ package edu.wwu.center.studenttechnology.intentHandlers;
 
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.slu.Slot;
-import com.amazon.speech.speechlet.SpeechletResponse;
 
+import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 import edu.wwu.center.studenttechnology.util.Workshop;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 import edu.wwu.center.studenttechnology.util.speech.assets.SampleUtteranceHandler;
@@ -38,8 +38,7 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
                     + workshop.getSeatsRemaining().get(0) + " seats remaining";
         }
 
-        return SpeechletResponse
-                .newTellResponse(constructOutputSpeech(response));
+        return SpeechletResponse.newTellResponse(response);
     }
 
     @Override

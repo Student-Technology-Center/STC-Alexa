@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.amazon.speech.slu.Intent;
-import com.amazon.speech.speechlet.SpeechletResponse;
+
+import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 
 public class IntentHandler {
     private final Map<String, IntentHandlerBase> intentMap;

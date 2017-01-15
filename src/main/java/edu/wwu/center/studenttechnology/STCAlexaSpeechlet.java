@@ -8,13 +8,13 @@ import com.amazon.speech.speechlet.SessionEndedRequest;
 import com.amazon.speech.speechlet.SessionStartedRequest;
 import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
-import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 
 import edu.wwu.center.studenttechnology.intentHandlers.IntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.STCInformationIntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopDateIntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopInformationIntentHandler;
+import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 import edu.wwu.center.studenttechnology.util.speech.assets.SampleUtteranceHandler;
 
