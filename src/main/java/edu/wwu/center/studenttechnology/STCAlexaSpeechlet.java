@@ -10,6 +10,7 @@ import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 
+import edu.wwu.center.studenttechnology.intentHandlers.ExampleYesNoIntent;
 import edu.wwu.center.studenttechnology.intentHandlers.IntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.STCInformationIntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopDateIntentHandler;
@@ -43,13 +44,15 @@ public class STCAlexaSpeechlet implements Speechlet {
         WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler(
                 workshopJsonParser, sampleUtteranceHandler);
         STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler();
-
+        ExampleYesNoIntent testIntent = new ExampleYesNoIntent();
+        
         intentHandler.addIntentHandler("WorkshopInformationIntent",
                 workshopInformationHandler);
         intentHandler.addIntentHandler("WorkshopDateIntent",
                 workshopDateHandler);
         intentHandler.addIntentHandler("STCInformationIntent",
                 stcInformationHandler);
+        intentHandler.addIntentHandler("TestIntent", testIntent);
     }
 
     @Override

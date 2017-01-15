@@ -13,6 +13,10 @@ WorkshopDateIntent Tell me more about {workshop}
 WorkshopDateIntent {workshop}
 WorkshopDateIntent yes {workshop}
 
+TestIntent Tell me about bees
+TestIntent bees
+TestIntent I want to be a bee
+
 ConfirmationIntent yes
 ConfirmationIntent sure
 ConfirmationIntent yes please
