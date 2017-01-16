@@ -26,9 +26,9 @@ public class IntentHandler {
     // I dont know how I feel about this code, it feels sloppy
     public SpeechletResponse executeHandler(String intentHandlerName,
             Intent intent) {
-        if (intent.getName() == "ConfirmationIntent") {
+        if (intent.getName().equals("ConfirmationIntent")) {
             return executeYesHandler(intentHandlerName, intent);
-        } else if (intent.getName() == "NoIntent") {
+        } else if (intent.getName().equals("NoIntent")) {
             return executeNoHandler(intentHandlerName, intent);
         }
 
