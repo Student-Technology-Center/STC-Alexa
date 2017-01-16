@@ -45,7 +45,7 @@ public class STCAlexaSpeechlet implements Speechlet {
                 workshopJsonParser, sampleUtteranceHandler);
         STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler();
         ExampleYesNoIntent testIntent = new ExampleYesNoIntent();
-        
+
         intentHandler.addIntentHandler("WorkshopInformationIntent",
                 workshopInformationHandler);
         intentHandler.addIntentHandler("WorkshopDateIntent",
@@ -72,6 +72,13 @@ public class STCAlexaSpeechlet implements Speechlet {
                 ? intent.getName() : intentToHandleNextYesNoIntent;
         intentString = (intentToHandleNextIntent == null) ? intentString
                 : intentToHandleNextIntent;
+
+        if ((intent.getName().equals("ConfirmationIntent")
+                || intent.getName().equals("NoIntent"))
+                && intentToHandleNextYesNoIntent == null) {
+            return SpeechletResponse
+                    .newTellResponse("Sorry, I don't understand.");
+        }
 
         intentToHandleNextYesNoIntent = null;
         intentToHandleNextIntent = null;
