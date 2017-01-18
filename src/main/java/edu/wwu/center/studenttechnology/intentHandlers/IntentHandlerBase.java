@@ -6,6 +6,11 @@ import com.amazon.speech.speechlet.Session;
 import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 
 public abstract class IntentHandlerBase {
+    /*
+     * Base class for all new intent handler classes to use
+     */
+
+    // Intents need a name
     private String name;
 
     public IntentHandlerBase(String name) {
@@ -15,6 +20,8 @@ public abstract class IntentHandlerBase {
     public String getName() {
         return name;
     }
+
+    // Intents need the following methods
 
     public abstract SpeechletResponse execute(Intent intent, Session session);
 

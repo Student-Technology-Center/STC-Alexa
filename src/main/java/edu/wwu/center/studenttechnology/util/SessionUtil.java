@@ -3,6 +3,11 @@ package edu.wwu.center.studenttechnology.util;
 import com.amazon.speech.speechlet.Session;
 
 public class SessionUtil {
+    /*
+     * This class is used to keep track of our attributes, since Session stores
+     * them as Strings, we want to make sure it's not mistyped anywhere.
+     */
+
     private static final String YES_NO_INTENT_ATTRIBUTE_NAME = "NEXT_YES_NO_INTENT";
     private static final String NEXT_EVENT_ATTRIBUTE_NAME = "NEXT_EVENT_INTENT";
 

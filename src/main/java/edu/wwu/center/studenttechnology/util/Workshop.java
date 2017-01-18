@@ -9,6 +9,12 @@ public class Workshop {
     private final List<String> startTimes;
     private final List<String> seatsRemainingList;
 
+    /*
+     * This class is used to package the data we get from WorkshopJson Parser.
+     * This class is simply a container for all the data about a particular
+     * workshop.
+     */
+
     public Workshop(String name, String date, String startTime,
             String seatsRemaining) {
         this.name = name;
@@ -29,6 +35,8 @@ public class Workshop {
         return name;
     }
 
+    // Some workshop names have roman numerals, we want to remove those (and
+    // other future weirdness) here so that Alexa can pronounce things okay
     public String getReadableName() {
         String readableString = name;
 
