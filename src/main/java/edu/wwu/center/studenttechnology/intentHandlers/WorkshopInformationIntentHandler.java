@@ -12,7 +12,7 @@ import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 public class WorkshopInformationIntentHandler extends IntentHandlerBase {
     private final WorkshopJsonParser workshopJsonParser;
 
-    public WorkshopInformationIntentHandler(String name, 
+    public WorkshopInformationIntentHandler(String name,
             WorkshopJsonParser workshopJsonParser) {
         super(name);
         this.workshopJsonParser = workshopJsonParser;

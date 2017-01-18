@@ -6,7 +6,7 @@ import com.amazon.speech.speechlet.Session;
 import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 
 public class STCInformationIntentHandler extends IntentHandlerBase {
-    
+
     public STCInformationIntentHandler(String name) {
         super(name);
     }

@@ -18,28 +18,32 @@ public class IntentHandler {
 
     public SpeechletResponse update(Intent intent, Session session) {
         String intentHandlerName = intent.getName();
-        String intentToHandleNextYesNo = SessionUtil.returnIntentToHandleNextYesNo(session);
-        String intentToHandleNextEvent = SessionUtil.returnIntentToHandleNextEvent(session);
-        
-        intentHandlerName = (intentToHandleNextYesNo == null) ? intentHandlerName : intentToHandleNextYesNo;
-        intentHandlerName = (intentToHandleNextEvent == null) ? intentHandlerName : intentToHandleNextEvent;
-        
+        String intentToHandleNextYesNo = SessionUtil
+                .returnIntentToHandleNextYesNo(session);
+        String intentToHandleNextEvent = SessionUtil
+                .returnIntentToHandleNextEvent(session);
+
+        intentHandlerName = (intentToHandleNextYesNo == null)
+                ? intentHandlerName : intentToHandleNextYesNo;
+        intentHandlerName = (intentToHandleNextEvent == null)
+                ? intentHandlerName : intentToHandleNextEvent;
+
         SessionUtil.setAttributesToNull(session);
-        
+
         IntentHandlerBase intentHandler = intentMap.get(intentHandlerName);
-        
+
         if (intentToHandleNextEvent != null) {
             return intentHandler.handleNextIntent(intent, session);
         }
-        
+
         if (intent.getName().equals("ConfirmationIntent")) {
             return intentHandler.handleYesResponse(intent, session);
         }
-        
+
         if (intent.getName().equals("NoIntent")) {
             return intentHandler.handleNoResponse(intent, session);
         }
-        
+
         return intentHandler.execute(intent, session);
     }
 

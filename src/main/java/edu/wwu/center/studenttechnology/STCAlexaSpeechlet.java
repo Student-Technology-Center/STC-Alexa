@@ -29,14 +29,18 @@ public class STCAlexaSpeechlet implements Speechlet {
 
     public STCAlexaSpeechlet(Logger log) {
         this.log = log;
-        
+
         workshopJsonParser = new WorkshopJsonParser();
         sampleUtteranceHandler = new SampleUtteranceHandler();
         intentHandler = new IntentHandler();
 
-        WorkshopInformationIntentHandler workshopInformationHandler = new WorkshopInformationIntentHandler("WorkshopInformationIntent", workshopJsonParser);
-        STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler("STCInformationIntent");
-        WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler("WorkshopDateIntent", workshopJsonParser, sampleUtteranceHandler);
+        WorkshopInformationIntentHandler workshopInformationHandler = new WorkshopInformationIntentHandler(
+                "WorkshopInformationIntent", workshopJsonParser);
+        STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler(
+                "STCInformationIntent");
+        WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler(
+                "WorkshopDateIntent", workshopJsonParser,
+                sampleUtteranceHandler);
         ExampleYesNoIntent testIntent = new ExampleYesNoIntent("TestIntent");
 
         intentHandler.addIntentHandler(workshopInformationHandler.getName(),

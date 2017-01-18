@@ -13,7 +13,8 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
     private final WorkshopJsonParser workshopJsonParser;
     private final SampleUtteranceHandler sampleUtteranceHandler;
 
-    public WorkshopDateIntentHandler(String name, WorkshopJsonParser workshopJsonParser,
+    public WorkshopDateIntentHandler(String name,
+            WorkshopJsonParser workshopJsonParser,
             SampleUtteranceHandler sampleUtteranceHandler) {
         super(name);
         this.workshopJsonParser = workshopJsonParser;

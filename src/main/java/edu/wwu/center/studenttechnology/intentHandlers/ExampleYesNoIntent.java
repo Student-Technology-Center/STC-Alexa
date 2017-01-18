@@ -16,8 +16,9 @@ public class ExampleYesNoIntent extends IntentHandlerBase {
     public SpeechletResponse execute(Intent intent, Session session) {
         String beeScriptPrompt = "Would you like me to read the bee movie script?";
         SessionUtil.setIntentToHandleNextYesNo(session, getName());
-        
-        return SpeechletResponse.newAskResponse(beeScriptPrompt, beeScriptPrompt);
+
+        return SpeechletResponse.newAskResponse(beeScriptPrompt,
+                beeScriptPrompt);
     }
 
     @Override
