@@ -37,13 +37,9 @@ public class WorkshopInformationIntentHandler extends IntentHandlerBase {
             firstIteration = false;
         }
 
-        response += ".";
+        response += ". Please say 'Ask STC tell me more about workshop' if you are curious about a specific workshop.";
 
-        String repromptText = "Is there a workshop you wish to learn more about?";
-
-        response += " " + repromptText;
-
-        return SpeechletResponse.newAskResponse(response, repromptText);
+        return SpeechletResponse.newTellResponse(response);
     }
 
     @Override
@@ -58,7 +54,6 @@ public class WorkshopInformationIntentHandler extends IntentHandlerBase {
 
     @Override
     public SpeechletResponse handleNextIntent(Intent intent, Session session) {
-        // TODO Auto-generated method stub
         return null;
     }
 }
