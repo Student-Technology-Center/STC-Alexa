@@ -27,4 +27,10 @@ public class ExampleYesNoIntent extends IntentHandlerBase {
         String noResponse = "You're missing out";
         return SpeechletResponse.newTellResponse(noResponse);
     }
+
+    @Override
+    public SpeechletResponse handleNextIntent(Intent intent) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

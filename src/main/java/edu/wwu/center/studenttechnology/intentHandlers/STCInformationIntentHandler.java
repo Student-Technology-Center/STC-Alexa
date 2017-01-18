@@ -27,4 +27,10 @@ public class STCInformationIntentHandler extends IntentHandlerBase {
     public SpeechletResponse handleNoResponse(Intent intent) {
         return null;
     }
+
+    @Override
+    public SpeechletResponse handleNextIntent(Intent intent) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -14,4 +14,6 @@ public abstract class IntentHandlerBase {
     public abstract SpeechletResponse handleYesResponse(Intent intent);
 
     public abstract SpeechletResponse handleNoResponse(Intent intent);
+    
+    public abstract SpeechletResponse handleNextIntent(Intent intent);
 }

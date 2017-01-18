@@ -53,4 +53,10 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
         return null;
     }
 
+    @Override
+    public SpeechletResponse handleNextIntent(Intent intent) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
