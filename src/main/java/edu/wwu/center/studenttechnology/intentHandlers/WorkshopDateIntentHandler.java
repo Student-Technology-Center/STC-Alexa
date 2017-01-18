@@ -2,6 +2,7 @@ package edu.wwu.center.studenttechnology.intentHandlers;
 
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.slu.Slot;
+import com.amazon.speech.speechlet.Session;
 
 import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 import edu.wwu.center.studenttechnology.util.Workshop;
@@ -12,14 +13,15 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
     private final WorkshopJsonParser workshopJsonParser;
     private final SampleUtteranceHandler sampleUtteranceHandler;
 
-    public WorkshopDateIntentHandler(WorkshopJsonParser workshopJsonParser,
+    public WorkshopDateIntentHandler(String name, WorkshopJsonParser workshopJsonParser,
             SampleUtteranceHandler sampleUtteranceHandler) {
+        super(name);
         this.workshopJsonParser = workshopJsonParser;
         this.sampleUtteranceHandler = sampleUtteranceHandler;
     }
 
     @Override
-    public SpeechletResponse execute(Intent intent) {
+    public SpeechletResponse execute(Intent intent, Session session) {
         Slot workshopShopSlot = intent.getSlot("workshop");
         String workshopString = workshopShopSlot.getValue();
 
@@ -42,19 +44,19 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
     }
 
     @Override
-    public SpeechletResponse handleYesResponse(Intent intent) {
+    public SpeechletResponse handleYesResponse(Intent intent, Session session) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public SpeechletResponse handleNoResponse(Intent intent) {
+    public SpeechletResponse handleNoResponse(Intent intent, Session session) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public SpeechletResponse handleNextIntent(Intent intent) {
+    public SpeechletResponse handleNextIntent(Intent intent, Session session) {
         // TODO Auto-generated method stub
         return null;
     }

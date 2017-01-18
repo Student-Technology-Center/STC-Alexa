@@ -27,32 +27,25 @@ public class STCAlexaSpeechlet implements Speechlet {
     private final IntentHandler intentHandler;
     private final WorkshopJsonParser workshopJsonParser;
 
-    private String intentToHandleNextYesNoIntent;
-    private String intentToHandleNextIntent;
-
     public STCAlexaSpeechlet(Logger log) {
         this.log = log;
+        
         workshopJsonParser = new WorkshopJsonParser();
         sampleUtteranceHandler = new SampleUtteranceHandler();
         intentHandler = new IntentHandler();
 
-        intentToHandleNextYesNoIntent = null;
-        intentToHandleNextIntent = null;
+        WorkshopInformationIntentHandler workshopInformationHandler = new WorkshopInformationIntentHandler("WorkshopInformationIntent", workshopJsonParser);
+        STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler("STCInformationIntent");
+        WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler("WorkshopDateIntent", workshopJsonParser, sampleUtteranceHandler);
+        ExampleYesNoIntent testIntent = new ExampleYesNoIntent("TestIntent");
 
-        WorkshopInformationIntentHandler workshopInformationHandler = new WorkshopInformationIntentHandler(
-                workshopJsonParser);
-        WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler(
-                workshopJsonParser, sampleUtteranceHandler);
-        STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler();
-        ExampleYesNoIntent testIntent = new ExampleYesNoIntent();
-
-        intentHandler.addIntentHandler("WorkshopInformationIntent",
+        intentHandler.addIntentHandler(workshopInformationHandler.getName(),
                 workshopInformationHandler);
-        intentHandler.addIntentHandler("WorkshopDateIntent",
-                workshopDateHandler);
-        intentHandler.addIntentHandler("STCInformationIntent",
+        intentHandler.addIntentHandler(stcInformationHandler.getName(),
                 stcInformationHandler);
-        intentHandler.addIntentHandler("TestIntent", testIntent);
+        intentHandler.addIntentHandler(workshopDateHandler.getName(),
+                workshopDateHandler);
+        intentHandler.addIntentHandler(testIntent.getName(), testIntent);
     }
 
     @Override
@@ -68,32 +61,7 @@ public class STCAlexaSpeechlet implements Speechlet {
             throw new SpeechletException("Invalid Intent");
         }
 
-        String intentString = (intentToHandleNextYesNoIntent == null)
-                ? intent.getName() : intentToHandleNextYesNoIntent;
-        intentString = (intentToHandleNextIntent == null) ? intentString
-                : intentToHandleNextIntent;
-
-        if ((intent.getName().equals("ConfirmationIntent")
-                || intent.getName().equals("NoIntent"))
-                && intentToHandleNextYesNoIntent == null) {
-            return SpeechletResponse
-                    .newTellResponse("Sorry, I don't understand.");
-        }
-
-        intentToHandleNextYesNoIntent = null;
-        intentToHandleNextIntent = null;
-
-        SpeechletResponse response = intentHandler.update(intentString, intent);
-
-        if (response.getHandleNextYesNoIntent()) {
-            intentToHandleNextYesNoIntent = intent.getName();
-        }
-
-        if (response.getHandleNextEvent()) {
-            intentToHandleNextIntent = intent.getName();
-        }
-
-        return response;
+        return intentHandler.update(intent, session);
     }
 
     @Override
