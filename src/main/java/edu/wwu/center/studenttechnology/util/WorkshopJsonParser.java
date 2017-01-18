@@ -14,6 +14,8 @@ public class WorkshopJsonParser {
     private JSONObject jsonObject;
     private HashMap<String, Workshop> workshopMap;
 
+    private String lastJsonBodytext;
+
     public WorkshopJsonParser() {
         workshopMap = new HashMap<String, Workshop>();
 
@@ -21,21 +23,34 @@ public class WorkshopJsonParser {
     }
 
     public void checkForUpdate() {
-        setJsonObject();
-        createWorkshopMap();
+        boolean isJsonNew = setJsonObject();
+
+        if (isJsonNew) {
+            createWorkshopMap();
+        }
     }
 
-    private void setJsonObject() {
+    private boolean setJsonObject() {
         Document doc;
         try {
             doc = Jsoup.connect(JSON_URL).get();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return;
+            return false;
         }
+
         String jsonText = doc.body().text();
+
+        if (jsonText.equals(lastJsonBodytext)) {
+            return false;
+        }
+
+        lastJsonBodytext = jsonText;
+
         jsonObject = new JSONObject(jsonText);
+
+        return true;
     }
 
     private void createWorkshopMap() {
