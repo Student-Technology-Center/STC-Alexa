@@ -1,6 +1,7 @@
 WorkshopInformationIntent What workshops are available
 WorkshopInformationIntent What workshops are there
 WorkshopInformationIntent What workshops does the STC have
+WorkshopInformationIntent Give me a list of workshops
 
 STCInformationIntent Tell me about the STC
 STCInformationIntent What does the STC do
