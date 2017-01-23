@@ -22,7 +22,6 @@ public class WorkshopInformationIntentHandler extends IntentHandlerBase {
     public SpeechletResponse execute(Intent intent, Session session) {
         workshopJsonParser.checkForUpdate();
         
-        
         Collection<Workshop> workshopCollection = workshopJsonParser
                 .getWorkshopCollection();
 
