@@ -12,7 +12,7 @@
             ]
         },
         {
-            "intent": "WorkshopListIntentHandler"
+            "intent": "WorkshopListIntent"
         },
         {
             "intent": "STCInformationIntent"

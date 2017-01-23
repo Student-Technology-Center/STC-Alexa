@@ -49,7 +49,7 @@ public class STCAlexaSpeechlet implements Speechlet {
         // constructor is up to the individual class, but each at least needs a
         // name to keep things consistent
         WorkshopListIntentHandler workshopListHandler = new WorkshopListIntentHandler(
-                "WorkshopListIntentHandler", workshopJsonParser);
+                "WorkshopListIntent", workshopJsonParser);
         STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler(
                 "STCInformationIntent");
         WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler(

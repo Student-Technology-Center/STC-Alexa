@@ -1,8 +1,8 @@
-WorkshopInformationIntent a list of workshops
-WorkshopInformationIntent give me a list of workshops
-WorkshopInformationIntent give a list of workshops
-WorkshopInformationIntent what workshops are there
-WorkshopInformationIntent what workshops does the STC have
+WorkshopListIntent a list of workshops
+WorkshopListIntent give me a list of workshops
+WorkshopListIntent give a list of workshops
+WorkshopListIntent what workshops are there
+WorkshopListIntent what workshops does the STC have
 
 STCInformationIntent information
 STCInformationIntent information about the STC
