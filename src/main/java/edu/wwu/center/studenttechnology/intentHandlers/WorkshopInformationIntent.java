@@ -9,11 +9,11 @@ import edu.wwu.center.studenttechnology.util.Workshop;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 import edu.wwu.center.studenttechnology.util.speech.assets.SampleUtteranceHandler;
 
-public class WorkshopDateIntentHandler extends IntentHandlerBase {
+public class WorkshopInformationIntent extends IntentHandlerBase {
     private final WorkshopJsonParser workshopJsonParser;
     private final SampleUtteranceHandler sampleUtteranceHandler;
 
-    public WorkshopDateIntentHandler(String name,
+    public WorkshopInformationIntent(String name,
             WorkshopJsonParser workshopJsonParser,
             SampleUtteranceHandler sampleUtteranceHandler) {
         super(name);
@@ -37,13 +37,7 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
             response = "Sorry, I don't understand what that workshop is, please let a STC member know if this is a mistake";
             System.out.println("Unknown Workshop: " + workshop);
         } else {
-            String date = workshop.GetDates().get(0);
-            response = "You asked about " + workshop.getReadableName()
-                    + " which is available on " + date + " at "
-                    + workshop.getStartTime(date) + ", has "
-                    + workshop.getSeatsRemaining(date)
-                    + " seats remaining, and is taught by "
-                    + workshop.getInstructor(date);
+            response = workshop.getDescription();
         }
 
         return SpeechletResponse.newTellResponse(response);

@@ -3,6 +3,16 @@
     [
         {
             "intent": "WorkshopInformationIntent"
+            "slots":
+            [
+                {
+                    "name": "workshop",
+                    "type": "LIST_OF_WORKSHOPS"
+                }
+            ]
+        },
+        {
+            "intent": "WorkshopListIntentHandler"
         },
         {
             "intent": "STCInformationIntent"

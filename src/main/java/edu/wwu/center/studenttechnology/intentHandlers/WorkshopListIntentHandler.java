@@ -9,10 +9,10 @@ import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 import edu.wwu.center.studenttechnology.util.Workshop;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 
-public class WorkshopInformationIntentHandler extends IntentHandlerBase {
+public class WorkshopListIntentHandler extends IntentHandlerBase {
     private final WorkshopJsonParser workshopJsonParser;
 
-    public WorkshopInformationIntentHandler(String name,
+    public WorkshopListIntentHandler(String name,
             WorkshopJsonParser workshopJsonParser) {
         super(name);
         this.workshopJsonParser = workshopJsonParser;

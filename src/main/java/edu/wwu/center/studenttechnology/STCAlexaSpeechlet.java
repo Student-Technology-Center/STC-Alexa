@@ -13,7 +13,8 @@ import edu.wwu.center.studenttechnology.intentHandlers.BeeMovieIntent;
 import edu.wwu.center.studenttechnology.intentHandlers.IntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.STCInformationIntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopDateIntentHandler;
-import edu.wwu.center.studenttechnology.intentHandlers.WorkshopInformationIntentHandler;
+import edu.wwu.center.studenttechnology.intentHandlers.WorkshopInformationIntent;
+import edu.wwu.center.studenttechnology.intentHandlers.WorkshopListIntentHandler;
 import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 import edu.wwu.center.studenttechnology.util.speech.assets.SampleUtteranceHandler;
@@ -47,16 +48,21 @@ public class STCAlexaSpeechlet implements Speechlet {
         // Construction of each intenthandler is done below, arguments for each
         // constructor is up to the individual class, but each at least needs a
         // name to keep things consistent
-        WorkshopInformationIntentHandler workshopInformationHandler = new WorkshopInformationIntentHandler(
-                "WorkshopInformationIntent", workshopJsonParser);
+        WorkshopListIntentHandler workshopListHandler = new WorkshopListIntentHandler(
+                "WorkshopListIntentHandler", workshopJsonParser);
         STCInformationIntentHandler stcInformationHandler = new STCInformationIntentHandler(
                 "STCInformationIntent");
         WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler(
                 "WorkshopDateIntent", workshopJsonParser,
                 sampleUtteranceHandler);
         BeeMovieIntent testIntent = new BeeMovieIntent("BeeMovieIntent");
+        WorkshopInformationIntent workshopInformationHandler = new WorkshopInformationIntent(
+                "WorkshopInformationIntent", workshopJsonParser,
+                sampleUtteranceHandler);
 
         // Register the intent handlers here
+        // TODO: Why doesn't intentHandler just grab the name? 
+        intentHandler.addIntentHandler(workshopListHandler.getName(), workshopListHandler);
         intentHandler.addIntentHandler(workshopInformationHandler.getName(),
                 workshopInformationHandler);
         intentHandler.addIntentHandler(stcInformationHandler.getName(),
@@ -80,10 +86,11 @@ public class STCAlexaSpeechlet implements Speechlet {
         if (intent == null) {
             throw new SpeechletException("Invalid Intent");
         }
-        
+
         log.info("Intent={}", intent.getName());
-        for(String key : intent.getSlots().keySet()) {
-            log.info("Slot Key={}, Slot Value={}", key, intent.getSlots().get(key));
+        for (String key : intent.getSlots().keySet()) {
+            log.info("Slot Key={}, Slot Value={}", key,
+                    intent.getSlots().get(key));
         }
 
         // Pass our data to our handler to handle
