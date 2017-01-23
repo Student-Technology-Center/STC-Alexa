@@ -26,7 +26,7 @@ WorkshopInformationIntent tell me about {workshop}
 WorkshopInformationIntent give me more information on {workshop}
 WorkshopInformationIntent about {workshop}
 
-TestIntent tell me about bees
+BeeMovieIntent tell me about bees
 
 ConfirmationIntent yes
 ConfirmationIntent sure

@@ -6,9 +6,9 @@ import com.amazon.speech.speechlet.Session;
 import edu.wwu.center.studenttechnology.util.SessionUtil;
 import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 
-public class ExampleYesNoIntent extends IntentHandlerBase {
+public class BeeMovieIntent extends IntentHandlerBase {
 
-    public ExampleYesNoIntent(String name) {
+    public BeeMovieIntent(String name) {
         super(name);
     }
 
