@@ -26,6 +26,8 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
         Slot workshopShopSlot = intent.getSlot("workshop");
         String workshopString = workshopShopSlot.getValue();
 
+        workshopJsonParser.checkForUpdate();
+
         workshopString = sampleUtteranceHandler.GetString(workshopString);
         Workshop workshop = workshopJsonParser.getWorkshop(workshopString);
 

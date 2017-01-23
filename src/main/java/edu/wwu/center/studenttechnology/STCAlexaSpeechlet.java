@@ -72,10 +72,6 @@ public class STCAlexaSpeechlet implements Speechlet {
         log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId());
 
-        // Our workshop json parser will check it's json page for any changes
-        // and will update it's own information if needed.
-        workshopJsonParser.checkForUpdate();
-
         // Gets the intent from the request
         Intent intent = request.getIntent();
 

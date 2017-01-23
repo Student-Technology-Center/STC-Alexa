@@ -8,15 +8,17 @@ import java.util.Scanner;
 
 public class SampleUtteranceHandler {
     private List<SampleUtterance> utteranceList;
-
+    private boolean createdList;
+    
+    
     private final String SAMPLE_UTTERANCE_TEXT_PATH = "speechAssets/LIST_OF_WORKSHOPS.txt";
 
     public SampleUtteranceHandler() {
         utteranceList = new ArrayList<SampleUtterance>();
-        createUtteranceList();
+        createdList = false;
     }
 
-    private void createUtteranceList() {
+    public void createUtteranceList() {
         // Gets our list of workshops text file from our resource folder
         File file = new File(getClass().getClassLoader()
                 .getResource(SAMPLE_UTTERANCE_TEXT_PATH).getFile());
@@ -60,6 +62,10 @@ public class SampleUtteranceHandler {
     }
 
     public String GetString(String utteranceString) {
+        if (!createdList) {
+            createUtteranceList();
+            createdList = true;
+        }
         // We iterate through every sample utterance we have saved
         for (SampleUtterance sampleUtterance : utteranceList) {
             // Gets the result of checking our given string against what the

@@ -18,8 +18,6 @@ public class WorkshopJsonParser {
 
     public WorkshopJsonParser() {
         workshopMap = new HashMap<String, Workshop>();
-
-        checkForUpdate();
     }
 
     public void checkForUpdate() {
