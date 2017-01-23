@@ -7,10 +7,14 @@ import java.util.Map;
 
 public class Workshop {
     private final String name;
+    private final String description;
+    private final String prerequisites;
     private final List<String> dates;
 
+    // Make this an object?
     private final Map<String, String> dateMapStartTime;
     private final Map<String, String> dateMapSeatsRemaining;
+    private final Map<String, String> dateMapInstructor;
 
     /*
      * This class is used to package the data we get from WorkshopJson Parser.
@@ -18,22 +22,36 @@ public class Workshop {
      * workshop.
      */
 
-    public Workshop(String name, String date, String startTime,
+    public Workshop(String name, String description, String prerequisites,
+            String instructor, String date, String startTime,
             String seatsRemaining) {
         this.name = name;
+        this.description = description;
+        this.prerequisites = prerequisites;
 
         this.dates = new ArrayList<String>();
         dates.add(date);
 
-        dateMapStartTime = new HashMap<>();
-        dateMapSeatsRemaining = new HashMap<>();
+        dateMapStartTime = new HashMap<String, String>();
+        dateMapSeatsRemaining = new HashMap<String, String>();
+        dateMapInstructor = new HashMap<String, String>();
 
         dateMapStartTime.put(date, startTime);
         dateMapSeatsRemaining.put(date, seatsRemaining);
+        dateMapInstructor.put(date, instructor);
     }
 
     public String getName() {
         return name;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    // List later?
+    public String getPrerequisites() {
+        return prerequisites;
     }
 
     // Some workshop names have roman numerals, we want to remove those (and
@@ -75,5 +93,13 @@ public class Workshop {
 
     public void addSeatsRemaining(String date, String seatsRemaining) {
         dateMapSeatsRemaining.put(date, seatsRemaining);
+    }
+
+    public String getInstructor(String date) {
+        return dateMapInstructor.get(date);
+    }
+
+    public void addInstructor(String date, String seatsRemaining) {
+        dateMapInstructor.put(date, seatsRemaining);
     }
 }

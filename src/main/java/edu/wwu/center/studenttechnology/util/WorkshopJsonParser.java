@@ -10,7 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public class WorkshopJsonParser {
-    private final String JSON_URL = "http://west.wwu.edu/stcworkshops/workshop_jason.asp";
+    private final String JSON_URL = "http://west.wwu.edu/stcworkshops/workshop_json.asp";
     private JSONObject jsonObject;
     private HashMap<String, Workshop> workshopMap;
 
@@ -87,6 +87,16 @@ public class WorkshopJsonParser {
             String seats = workshopJsonObject.getString("seats")
                     .replaceAll("\\s+", "");
 
+            String description = workshopJsonObject.getString("description")
+                    .replaceAll("\\s+", "");
+
+            // Not a typo here, it's a typo in the JSON itself
+            String instructor = workshopJsonObject.getString("instuctor")
+                    .replaceAll("\\s+", "");
+
+            String prerequisites = workshopJsonObject.getString("Prerequisites")
+                    .replaceAll("\\s+", "");
+
             // If there is already a saved workshop with the same name, we add
             // on to it.
             if (workshopMap.containsKey(name)) {
@@ -94,12 +104,14 @@ public class WorkshopJsonParser {
                 workshop.addDate(date);
                 workshop.addStartTime(date, startTime);
                 workshop.addSeatsRemaining(date, seats);
+                workshop.addInstructor(date, instructor);
                 continue;
             }
 
             // If this workshop doesn't exist in our map yet, we create a new
             // workshop object and add it
-            Workshop workshop = new Workshop(name, date, startTime, seats);
+            Workshop workshop = new Workshop(name, description, instructor,
+                    prerequisites, date, startTime, seats);
             workshopMap.put(name, workshop);
         }
     }
