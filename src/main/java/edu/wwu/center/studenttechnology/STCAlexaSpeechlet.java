@@ -18,6 +18,7 @@ import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 import edu.wwu.center.studenttechnology.util.speech.assets.SampleUtteranceHandler;
 
+import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 
 public class STCAlexaSpeechlet implements Speechlet {
@@ -28,6 +29,7 @@ public class STCAlexaSpeechlet implements Speechlet {
 
     public STCAlexaSpeechlet(Logger log) {
         this.log = log;
+        BasicConfigurator.configure();
 
         // Workshop JSON Parser is how some intents transcribe a JSON full with
         // information about workshops. More detailed in it's class
@@ -68,9 +70,8 @@ public class STCAlexaSpeechlet implements Speechlet {
     @Override
     public SpeechletResponse onIntent(IntentRequest request, Session session)
             throws SpeechletException {
-        // We log the request ID and session ID for log purposes
-        log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
+        
+        log.info(arg0);
 
         // Gets the intent from the request
         Intent intent = request.getIntent();
@@ -97,18 +98,12 @@ public class STCAlexaSpeechlet implements Speechlet {
     @Override
     public void onSessionEnded(SessionEndedRequest request, Session session)
             throws SpeechletException {
-        log.info("onSessionEnded requestID={}, sessionID={}",
-                request.getRequestId(), session.getSessionId());
     }
 
     // Fires when a user says 'Ask STC' without any other arguments
     @Override
     public SpeechletResponse onLaunch(LaunchRequest request, Session session)
             throws SpeechletException {
-        log.info("onlaunch requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
-
-        // TODO: Give example commands or options?
         return SpeechletResponse.newTellResponse("Okay, launching STC.");
     }
 }
