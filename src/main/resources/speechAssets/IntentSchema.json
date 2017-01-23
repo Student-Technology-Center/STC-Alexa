@@ -2,7 +2,7 @@
     "intents":
     [
         {
-            "intent": "WorkshopInformationIntent"
+            "intent": "WorkshopInformationIntent",
             "slots":
             [
                 {
@@ -34,7 +34,7 @@
             "intent": "NoIntent"
         },
         {
-            "intent": "TestIntent"
+            "intent": "BeeMovieIntent"
         }
     ]
 }
