@@ -70,8 +70,8 @@ public class STCAlexaSpeechlet implements Speechlet {
     @Override
     public SpeechletResponse onIntent(IntentRequest request, Session session)
             throws SpeechletException {
-        
-        log.info(arg0);
+        log.info("onSessionStarted requestID={}, sessionId={}",
+                request.getRequestId(), session.getSessionId());
 
         // Gets the intent from the request
         Intent intent = request.getIntent();
@@ -79,6 +79,11 @@ public class STCAlexaSpeechlet implements Speechlet {
         // If our intent is somehow null, we throw an error
         if (intent == null) {
             throw new SpeechletException("Invalid Intent");
+        }
+        
+        log.info("Intent={}", intent.getName());
+        for(String key : intent.getSlots().keySet()) {
+            log.info("Slot Key={}, Slot Value={}", key, intent.getSlots().get(key));
         }
 
         // Pass our data to our handler to handle
@@ -89,7 +94,6 @@ public class STCAlexaSpeechlet implements Speechlet {
     @Override
     public void onSessionStarted(SessionStartedRequest request, Session session)
             throws SpeechletException {
-        // We only log here
         log.info("onSessionStarted requestID={}, sessionId={}",
                 request.getRequestId(), session.getSessionId());
     }
@@ -98,12 +102,16 @@ public class STCAlexaSpeechlet implements Speechlet {
     @Override
     public void onSessionEnded(SessionEndedRequest request, Session session)
             throws SpeechletException {
+        log.info("onSessionEnded requestID={}, sessionId={}",
+                request.getRequestId(), session.getSessionId());
     }
 
     // Fires when a user says 'Ask STC' without any other arguments
     @Override
     public SpeechletResponse onLaunch(LaunchRequest request, Session session)
             throws SpeechletException {
+        log.info("onSessionLaunch requestID={}, sessionId={}",
+                request.getRequestId(), session.getSessionId());
         return SpeechletResponse.newTellResponse("Okay, launching STC.");
     }
 }
