@@ -11,6 +11,7 @@ import com.amazon.speech.speechlet.SpeechletException;
 
 import edu.wwu.center.studenttechnology.intentHandlers.BeeMovieIntent;
 import edu.wwu.center.studenttechnology.intentHandlers.IntentHandler;
+import edu.wwu.center.studenttechnology.intentHandlers.RealVillainIntent;
 import edu.wwu.center.studenttechnology.intentHandlers.STCInformationIntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopDateIntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopInformationIntent;
@@ -59,10 +60,13 @@ public class STCAlexaSpeechlet implements Speechlet {
         WorkshopInformationIntent workshopInformationHandler = new WorkshopInformationIntent(
                 "WorkshopInformationIntent", workshopJsonParser,
                 sampleUtteranceHandler);
+        RealVillainIntent realVillainIntent = new RealVillainIntent(
+                "RealVillainIntent");
 
         // Register the intent handlers here
-        // TODO: Why doesn't intentHandler just grab the name? 
-        intentHandler.addIntentHandler(workshopListHandler.getName(), workshopListHandler);
+        // TODO: Why doesn't intentHandler just grab the name?
+        intentHandler.addIntentHandler(workshopListHandler.getName(),
+                workshopListHandler);
         intentHandler.addIntentHandler(workshopInformationHandler.getName(),
                 workshopInformationHandler);
         intentHandler.addIntentHandler(stcInformationHandler.getName(),
@@ -70,6 +74,8 @@ public class STCAlexaSpeechlet implements Speechlet {
         intentHandler.addIntentHandler(workshopDateHandler.getName(),
                 workshopDateHandler);
         intentHandler.addIntentHandler(testIntent.getName(), testIntent);
+        intentHandler.addIntentHandler(realVillainIntent.getName(),
+                realVillainIntent);
     }
 
     // Fired when a user asks Alexa / STC something
