@@ -28,6 +28,12 @@ WorkshopInformationIntent about {workshop}
 
 BeeMovieIntent tell me about bees
 
+RealVillainIntent I'm a villain
+RealVillainIntent I am a villain
+
+YeahBoiIntent Give me your longest yeah boy ever
+YeahBoiIntent Give me the longest yeah boy ever
+
 ConfirmationIntent yes
 ConfirmationIntent sure
 ConfirmationIntent yes please

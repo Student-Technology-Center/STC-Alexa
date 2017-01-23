@@ -16,6 +16,7 @@ import edu.wwu.center.studenttechnology.intentHandlers.STCInformationIntentHandl
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopDateIntentHandler;
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopInformationIntent;
 import edu.wwu.center.studenttechnology.intentHandlers.WorkshopListIntentHandler;
+import edu.wwu.center.studenttechnology.intentHandlers.YeahBoiIntent;
 import edu.wwu.center.studenttechnology.util.SpeechletResponse;
 import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
 import edu.wwu.center.studenttechnology.util.speech.assets.SampleUtteranceHandler;
@@ -62,6 +63,7 @@ public class STCAlexaSpeechlet implements Speechlet {
                 sampleUtteranceHandler);
         RealVillainIntent realVillainIntent = new RealVillainIntent(
                 "RealVillainIntent");
+        YeahBoiIntent yeahBoiIntent = new YeahBoiIntent("YeahBoiIntent");
 
         // Register the intent handlers here
         // TODO: Why doesn't intentHandler just grab the name?
@@ -76,6 +78,7 @@ public class STCAlexaSpeechlet implements Speechlet {
         intentHandler.addIntentHandler(testIntent.getName(), testIntent);
         intentHandler.addIntentHandler(realVillainIntent.getName(),
                 realVillainIntent);
+        intentHandler.addIntentHandler(yeahBoiIntent.getName(), yeahBoiIntent);
     }
 
     // Fired when a user asks Alexa / STC something
