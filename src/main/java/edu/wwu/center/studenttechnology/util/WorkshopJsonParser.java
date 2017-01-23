@@ -92,8 +92,8 @@ public class WorkshopJsonParser {
             if (workshopMap.containsKey(name)) {
                 Workshop workshop = workshopMap.get(name);
                 workshop.addDate(date);
-                workshop.addStartTime(startTime);
-                workshop.addSeatsRemaining(seats);
+                workshop.addStartTime(date, startTime);
+                workshop.addSeatsRemaining(date, seats);
                 continue;
             }
 

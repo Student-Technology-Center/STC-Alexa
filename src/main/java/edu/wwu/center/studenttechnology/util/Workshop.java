@@ -1,13 +1,16 @@
 package edu.wwu.center.studenttechnology.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Workshop {
     private final String name;
     private final List<String> dates;
-    private final List<String> startTimes;
-    private final List<String> seatsRemainingList;
+
+    private final Map<String, String> dateMapStartTime;
+    private final Map<String, String> dateMapSeatsRemaining;
 
     /*
      * This class is used to package the data we get from WorkshopJson Parser.
@@ -19,16 +22,14 @@ public class Workshop {
             String seatsRemaining) {
         this.name = name;
 
-        // TODO: Tie the following three strings together somehow
-
         this.dates = new ArrayList<String>();
         dates.add(date);
 
-        this.startTimes = new ArrayList<String>();
-        startTimes.add(startTime);
+        dateMapStartTime = new HashMap<>();
+        dateMapSeatsRemaining = new HashMap<>();
 
-        this.seatsRemainingList = new ArrayList<>();
-        seatsRemainingList.add(seatsRemaining);
+        dateMapStartTime.put(date, startTime);
+        dateMapSeatsRemaining.put(date, seatsRemaining);
     }
 
     public String getName() {
@@ -60,19 +61,19 @@ public class Workshop {
         dates.add(date);
     }
 
-    public List<String> getStartTime() {
-        return startTimes;
+    public String getStartTime(String date) {
+        return dateMapStartTime.get(date);
     }
 
-    public void addStartTime(String startTime) {
-        startTimes.add(startTime);
+    public void addStartTime(String date, String startTime) {
+        dateMapStartTime.put(date, startTime);
     }
 
-    public List<String> getSeatsRemaining() {
-        return seatsRemainingList;
+    public String getSeatsRemaining(String date) {
+        return dateMapSeatsRemaining.get(date);
     }
 
-    public void addSeatsRemaining(String seatsRemaining) {
-        seatsRemainingList.add(seatsRemaining);
+    public void addSeatsRemaining(String date, String seatsRemaining) {
+        dateMapSeatsRemaining.put(date, seatsRemaining);
     }
 }

@@ -37,10 +37,11 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
             response = "Sorry, I don't understand what that workshop is, please let a STC member know if this is a mistake";
             System.out.println("Unknown Workshop: " + workshop);
         } else {
+            String date = workshop.GetDates().get(0);
             response = "You asked about " + workshop.getReadableName()
-                    + " which is available on " + workshop.GetDates().get(0)
-                    + " at " + workshop.getStartTime().get(0) + " and has "
-                    + workshop.getSeatsRemaining().get(0) + " seats remaining";
+                    + " which is available on " + date + " at "
+                    + workshop.getStartTime(date) + " and has "
+                    + workshop.getSeatsRemaining(date) + " seats remaining";
         }
 
         return SpeechletResponse.newTellResponse(response);
