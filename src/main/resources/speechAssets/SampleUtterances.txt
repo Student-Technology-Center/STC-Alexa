@@ -1,22 +1,32 @@
-WorkshopInformationIntent What workshops are available
-WorkshopInformationIntent What workshops are there
-WorkshopInformationIntent What workshops does the STC have
-WorkshopInformationIntent Give me a list of workshops
+WorkshopInformationIntent a list of workshops
+WorkshopInformationIntent give me a list of workshops
+WorkshopInformationIntent give a list of workshops
+WorkshopInformationIntent what workshops are there
+WorkshopInformationIntent what workshops does the STC have
 
-STCInformationIntent Tell me about the STC
-STCInformationIntent What does the STC do
-STCInformationIntent What is the STC
+STCInformationIntent information
+STCInformationIntent information about the STC
+STCInformationIntent to tell me about the STC
 
-WorkshopDateIntent When is {workshop}
-WorkshopDateIntent What time is {workshop}
-WorkshopDateIntent When can I go to {workshop}
-WorkshopDateIntent Tell me more about {workshop}
-WorkshopDateIntent {workshop}
-WorkshopDateIntent yes {workshop}
+WorkshopDateIntent when is the next workshop for {workshop}
+WorkshopDateIntent when's the next workshop for {workshop}
+WorkshopDateIntent when the next workshop for {workshop}
+WorkshopDateIntent when is the next {workshop}
+WorkshopDateIntent when's the next {workshop}
+WorkshopDateIntent when the next {workshop}
+WorkshopDateIntent when the next {workshop} is
+WorkshopDateIntent tell me when {workshop} is
+WorkshopDateIntent when is {workshop}
+WorkshopDateIntent when's {workshop}
 
-TestIntent Tell me about bees
-TestIntent bees
-TestIntent I want to be a bee
+WorkshopInformationIntent give more information about {workshop}
+WorkshopInformationIntent what is {workshop}
+WorkshopInformationIntent what's {workshop}
+WorkshopInformationIntent tell me about {workshop}
+WorkshopInformationIntent give me more information on {workshop}
+WorkshopInformationIntent about {workshop}
+
+TestIntent tell me about bees
 
 ConfirmationIntent yes
 ConfirmationIntent sure
