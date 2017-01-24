@@ -96,6 +96,8 @@ public class Workshop {
     }
 
     public String getInstructor(String date) {
+        System.out.println("Date: " + date);
+        System.out.println(dateMapInstructor);
         return dateMapInstructor.get(date);
     }
 

@@ -50,6 +50,8 @@ public class WorkshopJsonParser {
             return false;
         }
 
+        System.out.println(jsonText);
+        
         // Sets our lastBodyText for future checks
         lastJsonBodytext = jsonText;
 
@@ -87,16 +89,17 @@ public class WorkshopJsonParser {
             String seats = workshopJsonObject.getString("seats")
                     .replaceAll("\\s+", "");
 
-            String description = workshopJsonObject.getString("description")
-                    .replaceAll("\\s+", "");
+            String description = workshopJsonObject.getString("description");
 
             // Not a typo here, it's a typo in the JSON itself
-            String instructor = workshopJsonObject.getString("instuctor")
-                    .replaceAll("\\s+", "");
+            String instructor = workshopJsonObject.getString("instuctor");
 
             String prerequisites = workshopJsonObject.getString("Prerequisites")
                     .replaceAll("\\s+", "");
 
+            
+            System.out.println("|" + name + "|");
+            System.out.println("|" + description + "|");
             // If there is already a saved workshop with the same name, we add
             // on to it.
             if (workshopMap.containsKey(name)) {
@@ -105,13 +108,14 @@ public class WorkshopJsonParser {
                 workshop.addStartTime(date, startTime);
                 workshop.addSeatsRemaining(date, seats);
                 workshop.addInstructor(date, instructor);
+                workshopMap.put(name, workshop);
                 continue;
             }
 
             // If this workshop doesn't exist in our map yet, we create a new
             // workshop object and add it
-            Workshop workshop = new Workshop(name, description, instructor,
-                    prerequisites, date, startTime, seats);
+            Workshop workshop = new Workshop(name, description, prerequisites,
+                    instructor, date, startTime, seats);
             workshopMap.put(name, workshop);
         }
     }

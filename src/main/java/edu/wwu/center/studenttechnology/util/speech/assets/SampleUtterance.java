@@ -25,7 +25,10 @@ public class SampleUtterance {
     // If the string given to us matches our parent string or any of our
     // subStrings, we return the parent string. Otherwise we return null.
     public String CheckString(String testString) {
-        return (subStrings.contains(testString) || testString == parentString)
+        System.out.println("Parent: " + parentString);
+        System.out.println(("Childs: " + subStrings));
+        
+        return (subStrings.contains(testString) || testString.equals(parentString))
                 ? parentString : null;
     }
 }

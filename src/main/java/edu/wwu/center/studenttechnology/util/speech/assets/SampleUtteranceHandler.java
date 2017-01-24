@@ -66,6 +66,8 @@ public class SampleUtteranceHandler {
             createUtteranceList();
             createdList = true;
         }
+        
+        System.out.println("Searching against: " + utteranceString);
         // We iterate through every sample utterance we have saved
         for (SampleUtterance sampleUtterance : utteranceList) {
             // Gets the result of checking our given string against what the

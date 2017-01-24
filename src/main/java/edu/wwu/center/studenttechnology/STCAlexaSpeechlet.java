@@ -99,7 +99,7 @@ public class STCAlexaSpeechlet implements Speechlet {
         log.info("Intent={}", intent.getName());
         for (String key : intent.getSlots().keySet()) {
             log.info("Slot Key={}, Slot Value={}", key,
-                    intent.getSlots().get(key));
+                    intent.getSlots().get(key).getValue());
         }
 
         // Pass our data to our handler to handle

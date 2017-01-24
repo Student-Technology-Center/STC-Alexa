@@ -26,9 +26,14 @@ public class WorkshopInformationIntent extends IntentHandlerBase {
         Slot workshopShopSlot = intent.getSlot("workshop");
         String workshopString = workshopShopSlot.getValue();
 
+        System.out.println("Workshop String: " + workshopString);
+        
         workshopJsonParser.checkForUpdate();
 
         workshopString = sampleUtteranceHandler.GetString(workshopString);
+        
+        System.out.println("Workshop String: " + workshopString);
+        
         Workshop workshop = workshopJsonParser.getWorkshop(workshopString);
 
         String response;
@@ -38,8 +43,19 @@ public class WorkshopInformationIntent extends IntentHandlerBase {
             System.out.println("Unknown Workshop: " + workshop);
         } else {
             response = workshop.getDescription();
+            
+            if (response.equals("") || response.equals(" ")) {
+                response = "Sorry, there's not a description for " + workshopString + " yet.";
+            }
+            
+            System.out.println("|" + workshop.getPrerequisites() + "|");
+            
+            if (workshop.getPrerequisites().equals("") || workshop.getPrerequisites().equals(" ")) {
+                return SpeechletResponse.newTellResponse(response);
+            }
+            response += " Prerequisites for this workshop are " + workshop.getPrerequisites();
         }
-
+        
         return SpeechletResponse.newTellResponse(response);
     }
 
