@@ -57,13 +57,13 @@ public class STCAlexaSpeechlet implements Speechlet {
         WorkshopDateIntentHandler workshopDateHandler = new WorkshopDateIntentHandler(
                 "WorkshopDateIntent", workshopJsonParser,
                 sampleUtteranceHandler);
-        BeeMovieIntent testIntent = new BeeMovieIntent("BeeMovieIntent");
+        //BeeMovieIntent testIntent = new BeeMovieIntent("BeeMovieIntent");
         WorkshopInformationIntent workshopInformationHandler = new WorkshopInformationIntent(
                 "WorkshopInformationIntent", workshopJsonParser,
                 sampleUtteranceHandler);
-        RealVillainIntent realVillainIntent = new RealVillainIntent(
-                "RealVillainIntent");
-        YeahBoiIntent yeahBoiIntent = new YeahBoiIntent("YeahBoiIntent");
+        //RealVillainIntent realVillainIntent = new RealVillainIntent(
+        //        "RealVillainIntent");
+        //YeahBoiIntent yeahBoiIntent = new YeahBoiIntent("YeahBoiIntent");
 
         // Register the intent handlers here
         // TODO: Why doesn't intentHandler just grab the name?
@@ -75,10 +75,10 @@ public class STCAlexaSpeechlet implements Speechlet {
                 stcInformationHandler);
         intentHandler.addIntentHandler(workshopDateHandler.getName(),
                 workshopDateHandler);
-        intentHandler.addIntentHandler(testIntent.getName(), testIntent);
-        intentHandler.addIntentHandler(realVillainIntent.getName(),
-                realVillainIntent);
-        intentHandler.addIntentHandler(yeahBoiIntent.getName(), yeahBoiIntent);
+        //intentHandler.addIntentHandler(testIntent.getName(), testIntent);
+        //intentHandler.addIntentHandler(realVillainIntent.getName(),
+        //        realVillainIntent);
+        //intentHandler.addIntentHandler(yeahBoiIntent.getName(), yeahBoiIntent);
     }
 
     // Fired when a user asks Alexa / STC something
