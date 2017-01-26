@@ -4,8 +4,10 @@ WorkshopListIntent give a list of workshops
 WorkshopListIntent what workshops are there
 WorkshopListIntent what workshops does the STC have
 
-STCInformationIntent information
+STCInformationIntent to tell me about itself
 STCInformationIntent information about the STC
+STCInformationIntent give me information on the STC
+STCInformationIntent give me information on the student technology center
 STCInformationIntent to tell me about the STC
 
 WorkshopDateIntent when is the next workshop for {workshop}
