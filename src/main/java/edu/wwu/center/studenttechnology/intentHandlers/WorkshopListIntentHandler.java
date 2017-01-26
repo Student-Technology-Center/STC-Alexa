@@ -39,8 +39,6 @@ public class WorkshopListIntentHandler extends IntentHandlerBase {
             firstIteration = false;
         }
 
-        response += ". Please say 'Ask STC tell me more about workshop' if you are curious about a specific workshop.";
-
         return SpeechletResponse.newTellResponse(response);
     }
 
