@@ -26,36 +26,38 @@ public class WorkshopInformationIntent extends IntentHandlerBase {
         Slot workshopShopSlot = intent.getSlot("workshop");
         String workshopString = workshopShopSlot.getValue();
 
-        System.out.println("Workshop String: " + workshopString);
-        
         workshopJsonParser.checkForUpdate();
 
         workshopString = sampleUtteranceHandler.GetString(workshopString);
-        
-        System.out.println("Workshop String: " + workshopString);
-        
+
         Workshop workshop = workshopJsonParser.getWorkshop(workshopString);
 
         String response;
 
         if (workshopString == null) {
-            response = "Sorry, I don't understand what that workshop is, please let a STC member know if this is a mistake";
-            System.out.println("Unknown Workshop: " + workshop);
+
+            System.out.println("Unknown Workshop: " + workshopString);
+            response = "I'm sorry, I don't know that workshop.";
+        } else if (workshop == null) {
+            response = "Sorry, that workshop isn't available right now.";
         } else {
             response = workshop.getDescription();
-            
+
             if (response.equals("") || response.equals(" ")) {
-                response = "Sorry, there's not a description for " + workshopString + " yet.";
+                response = "Sorry, there's not a description for "
+                        + workshopString + " yet.";
             }
-            
+
             System.out.println("|" + workshop.getPrerequisites() + "|");
-            
-            if (workshop.getPrerequisites().equals("") || workshop.getPrerequisites().equals(" ")) {
+
+            if (workshop.getPrerequisites().equals("")
+                    || workshop.getPrerequisites().equals(" ")) {
                 return SpeechletResponse.newTellResponse(response);
             }
-            response += " Prerequisites for this workshop are " + workshop.getPrerequisites();
+            response += " Prerequisites for this workshop are "
+                    + workshop.getPrerequisites();
         }
-        
+
         return SpeechletResponse.newTellResponse(response);
     }
 

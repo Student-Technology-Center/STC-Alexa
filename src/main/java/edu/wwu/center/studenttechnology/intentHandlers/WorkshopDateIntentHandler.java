@@ -35,7 +35,9 @@ public class WorkshopDateIntentHandler extends IntentHandlerBase {
 
         if (workshopString == null) {
             response = "Sorry, I don't understand what that workshop is, please let a STC member know if this is a mistake";
-            System.out.println("Unknown Workshop: " + workshop);
+            System.out.println("Unknown Workshop: " + workshopString);
+        } else if (workshop == null) {
+            response = "Sorry, that workshop isn't available right now.";
         } else {
             String date = workshop.GetDates().get(0);
             response = "You asked about " + workshop.getReadableName()
