@@ -1,11 +1,12 @@
-package edu.wwu.center.studenttechnology.intentHandlers;
+package edu.wwu.center.studenttechnology.stc.alexa.intent;
 
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.Session;
 
-import edu.wwu.center.studenttechnology.util.SpeechletResponse;
+import edu.wwu.center.studenttechnology.stc.alexa.framework.intent.IntentBase;
+import edu.wwu.center.studenttechnology.stc.alexa.framework.speechlet.SpeechletResponse;
 
-public class STCInformationIntentHandler extends IntentHandlerBase {
+public class STCInformationIntentHandler extends IntentBase {
 
     public STCInformationIntentHandler(String name) {
         super(name);

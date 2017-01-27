@@ -1,4 +1,4 @@
-package edu.wwu.center.studenttechnology;
+package edu.wwu.center.studenttechnology.stc.alexa;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,9 +12,8 @@ public class STCAlexaSpeechletRequestStreamHandler
     private static final Set<String> supportedApplicationIds = new HashSet<String>();
 
     static {
-        // TODO: Add unique value here
         supportedApplicationIds
-                .add("amzn1.echo-sdk-ams.app.[unique-value-here]");
+                .add("amzn1.ask.skill.280380bd-d8d3-4b06-b1c7-61436d7eed64");
     }
 
     public STCAlexaSpeechletRequestStreamHandler() {

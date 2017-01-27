@@ -1,15 +1,16 @@
-package edu.wwu.center.studenttechnology.intentHandlers;
+package edu.wwu.center.studenttechnology.stc.alexa.intent;
 
 import java.util.Collection;
 
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.Session;
 
-import edu.wwu.center.studenttechnology.util.SpeechletResponse;
-import edu.wwu.center.studenttechnology.util.Workshop;
-import edu.wwu.center.studenttechnology.util.WorkshopJsonParser;
+import edu.wwu.center.studenttechnology.stc.alexa.framework.intent.IntentBase;
+import edu.wwu.center.studenttechnology.stc.alexa.framework.speechlet.SpeechletResponse;
+import edu.wwu.center.studenttechnology.stc.alexa.util.workshop.Workshop;
+import edu.wwu.center.studenttechnology.stc.alexa.util.workshop.WorkshopJsonParser;
 
-public class WorkshopListIntentHandler extends IntentHandlerBase {
+public class WorkshopListIntentHandler extends IntentBase {
     private final WorkshopJsonParser workshopJsonParser;
 
     public WorkshopListIntentHandler(String name,

@@ -1,4 +1,4 @@
-package edu.wwu.center.studenttechnology.util.speech.assets;
+package edu.wwu.center.studenttechnology.stc.alexa.util.speech;
 
 import java.io.File;
 import java.io.IOException;

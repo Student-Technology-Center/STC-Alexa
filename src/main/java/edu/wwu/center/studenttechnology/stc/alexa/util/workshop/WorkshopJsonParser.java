@@ -1,4 +1,4 @@
-package edu.wwu.center.studenttechnology.util;
+package edu.wwu.center.studenttechnology.stc.alexa.util.workshop;
 
 import java.io.IOException;
 import java.util.Collection;
