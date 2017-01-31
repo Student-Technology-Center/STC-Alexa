@@ -23,20 +23,4 @@ public class STCInformationIntentHandler extends IntentBase {
 
         return SpeechletResponse.newTellResponse(helpMessage);
     }
-
-    @Override
-    public SpeechletResponse handleYesResponse(Intent intent, Session session) {
-        return null;
-    }
-
-    @Override
-    public SpeechletResponse handleNoResponse(Intent intent, Session session) {
-        return null;
-    }
-
-    @Override
-    public SpeechletResponse handleNextIntent(Intent intent, Session session) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

@@ -61,20 +61,4 @@ public class WorkshopInformationIntent extends IntentBase {
 
         return SpeechletResponse.newTellResponse(response);
     }
-
-    @Override
-    public SpeechletResponse handleYesResponse(Intent intent, Session session) {
-        return null;
-    }
-
-    @Override
-    public SpeechletResponse handleNoResponse(Intent intent, Session session) {
-        return null;
-    }
-
-    @Override
-    public SpeechletResponse handleNextIntent(Intent intent, Session session) {
-        return null;
-    }
-
 }
