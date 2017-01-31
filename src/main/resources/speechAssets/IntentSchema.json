@@ -32,15 +32,6 @@
         },
         {
             "intent": "NoIntent"
-        },
-        {
-            "intent": "BeeMovieIntent"
-        },
-        {
-            "intent": "RealVillainIntent"
-        },
-        {
-            "intent": "YeahBoiIntent"
         }
     ]
 }
